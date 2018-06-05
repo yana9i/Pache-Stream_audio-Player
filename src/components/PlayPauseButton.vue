@@ -2,13 +2,10 @@
     <div>
         <audio ref="audio" preload="meta" src="https://demo.azuracast.com/radio/8000/radio.mp3?1527775630">不支持 audio</audio>
         <button @click="togger">button</button>
-        <music-info></music-info>
     </div>
 </template>
 
 <script>
-import MusicInfo from './MusicInfo.vue'
-
 export default {
     name:'Player',
     data () {
@@ -42,9 +39,6 @@ export default {
                 this.play();
             }
         }
-    },
-    components:{
-        'music-info':MusicInfo
     },
     mounted : function(){
         this.url = this.$refs.audio.src;

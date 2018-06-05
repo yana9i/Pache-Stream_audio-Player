@@ -6,12 +6,16 @@
         <h2>Album : {{nowPlaying.album}}</h2>
         <p>{{playTime.elapsed}}+{{playTime.remaining}}={{playTime.duration}}</p>
         <p>{{this.computePercent}}</p>
+        <progress-bar :percent="computePercent"></progress-bar>
+        <progress-bar-study :progress="computePercent*100"></progress-bar-study>
     </div>
 </template>
-对象
 <script>
 var nextMusic={
 }
+
+import progressBar from "./ProgressBar";
+import progressBarStudy from "./ProgressBarStudy";
 
 export default {
     name:'musicinfo',
@@ -65,6 +69,10 @@ export default {
         computePercent:function(){
             return parseFloat(this.playTime.elapsed)/parseFloat(this.playTime.duration);
         }
+    },
+    components:{
+        'progress-bar':progressBar,
+        'progress-bar-study':progressBarStudy
     },
     mounted : function(){
         this.getNowPlaying();

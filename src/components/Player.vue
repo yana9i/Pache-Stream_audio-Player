@@ -1,19 +1,24 @@
 <template>
     <div>
         <h1>Player component</h1>
-        <player></player>
+        <player-button></player-button>
+        <music-info></music-info>
     </div>
 </template>
 
 <script>
 
 import hw from "./HelloWorld.vue"
-import player from "./PlayPauseButton"
+import playerPauseButton from "./PlayPauseButton"
+import musicInfo from "./MusicInfo"
+import ProgressBarStudy from "./ProgressBarStudy"
 
 export default {
     components:{
         'helloworld':hw,
-        'player':player
+        'player-button':playerPauseButton,
+        'music-info':musicInfo,
+        'progress-bar-study':ProgressBarStudy
     }
 }
 </script>
