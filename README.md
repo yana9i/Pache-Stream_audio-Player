@@ -1,6 +1,6 @@
-# vue_via_cli
+# Pache Stream audio Player
 
-> A Vue.js project
+> A stream audio player for Azuracast with Vue.js
 
 ## Build Setup
 
