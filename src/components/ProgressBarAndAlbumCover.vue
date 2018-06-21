@@ -13,7 +13,7 @@
       </div>
         <div id="imgList">
           <div id="imgHolder" :class="isPlaying&&this.timer.remaining>3?'img-holder-playing':'img-holder-not-playing'" @click="$emit('toggle',isPlaying)">
-            <img :src="recentSongs.nowPlay.song.art" id="nowPlayImg">
+            <img :src="recentSongs.nowPlay.song.art" id="nowPlayImg" :style="coverAni,{transform:'rotate('+imgRotate+'deg)'}">
           </div>
         </div>
     </div>
@@ -39,13 +39,32 @@ export default {
   },
   data:function(){
     return{
-      imgHolderStyle:{
-        width:0,
-      }
+      coverAni:{
+        transitionProperty:'all',
+        transitionDuration:'0s',
+        transitionTimingFunction:'linear'
+      },
+      imgRotate:0,
+      intervalId:null,
     }
   },
-  mounted:function(){
-    this.imgHolderStyle.width = this.$refs.root.offsetWidth
+  watch:{
+    isPlaying:function(){
+      if(this.isPlaying&&this.timer.remaining>3){
+        this.transitionDuration='1s';
+        this.transitionTimingFunction='linear';
+        this.intervalId = setInterval(()=>{this.imgRotate+=5},100);
+      }
+      else{
+        clearInterval(this.intervalId);
+        this.transitionTimingFunction='ease';
+        var closedRotate = this.imgRotate % 360;
+        if(closedRotate < 180 )
+          this.imgRotate-=closedRotate;
+        else
+          this.imgRotate=this.imgRotate-closedRotate+360;
+      }
+    }
   }
 };
 
@@ -53,22 +72,23 @@ export default {
 
 <style scoped>
 div.IProgressContainer{
-  background-color: gray;
+  background-color: #999;
   border-radius: 10px;
-  box-shadow: 0px 2px 4px 0px black;
+  box-shadow: 0px 1px 3px 0px #999;
+  margin-top: 10px;
 }
 div.IIProgressContainer {
-  background-color: #fff;
   height: 3px;
   line-height: 10px;
-  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
 }
 div.progress-transition {
   transition: width 1010ms linear;
 }
 div#progress {
-  background-color: black;
-  height: 3px;
+  background-color: #3a3a45;
+  height: 2px;
   width: 100%;
 }
 svg {
@@ -86,7 +106,7 @@ div#imgList{
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  height: 30vw;
+  height: 50vh;
   z-index: -3;
 }
 div#imgHolder{
@@ -122,11 +142,12 @@ img {
 }
 
 div.img-holder-playing{
-  transform: translate(0vw,-8vw);
+  transform: translate(0vw,-25vh);
 }
 div.img-holder-not-playing{
   transform: translate(0vw,0vw);
-  box-shadow: 0px 2px 7px 0px black;
+  box-shadow: 0px 2px 7px 0px #999;
 }
+
 </style>
 

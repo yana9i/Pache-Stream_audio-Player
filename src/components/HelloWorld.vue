@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <player-rec scr='http://10.18.3.111/api/nowplaying'></player-rec>
+    <player-rec scr='https://demo.azuracast.com/api/nowplaying'></player-rec>
   </div>
 </template>
 
