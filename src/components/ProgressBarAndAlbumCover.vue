@@ -1,5 +1,5 @@
 <template>
-    <div ref="root" >
+    <div ref="root" id="root">
       <div class="IProgressContainer">
         <div class="IIProgressContainer progress-transition" :style="{width:progress+'%'}">
             <div id="progress" >
@@ -11,10 +11,24 @@
             </transition>
         </div>
       </div>
-        <div id="imgList">
-          <div id="imgHolder" :class="isPlaying&&this.timer.remaining>3?'img-holder-playing':'img-holder-not-playing'" @click="$emit('toggle',isPlaying)">
-            <img :src="recentSongs.nowPlay.song.art" id="nowPlayImg" :style="coverAni,{transform:'rotate('+imgRotate+'deg)'}">
-          </div>
+        <div id="imgList" >
+            <div id="outerLine">
+              <transition name="fade2">
+                <template  v-if="!isPlaying">
+                  <div>
+                <div id="outerLine2">
+                </div>
+                  </div>
+                </template>
+              </transition>
+              <transition name="fade2" mode="out-in">
+                <div v-if='timer.remaining>1.5||timer.elapsed<1' >
+                    <div id="imgHolder" :class="isPlaying&&(timer.remaining>3||timer.elapsed<1)?'img-holder-playing':'img-holder-not-playing'" @click="$emit('toggle',isPlaying)">
+                      <img :src="recentSongs.nowPlay.song.art" id="nowPlayImg" :style="coverAni,{transform:'rotate('+imgRotate+'deg)'}" >
+                    </div>
+                </div>
+              </transition>
+            </div>
         </div>
     </div>
 </template>
@@ -71,6 +85,9 @@ export default {
 </script>
 
 <style scoped>
+div#root{
+  z-index: -10;
+}
 div.IProgressContainer{
   background-color: #999;
   border-radius: 10px;
@@ -106,14 +123,15 @@ div#imgList{
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  height: 50vh;
-  z-index: -3;
+  height: 60vh;
+  z-index: -10;
 }
 div#imgHolder{
   transition: all .8s;
   border-radius: 50%;
   width: 20vw;
   height: 20vw;
+  z-index: 1999;
 }
 img {
   width: 20vw;
@@ -121,6 +139,13 @@ img {
   transition: all .8s;
   border-radius: 50%;
   z-index: -3;
+}
+
+img#img-transition {
+  opacity: 0;
+}
+img#img-not-transition {
+  opacity: 1;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -142,12 +167,56 @@ img {
 }
 
 div.img-holder-playing{
-  transform: translate(0vw,-25vh);
+  transform: translate(0vw,-30vh);
 }
 div.img-holder-not-playing{
   transform: translate(0vw,0vw);
   box-shadow: 0px 2px 7px 0px #999;
 }
 
+.fade2-enter-active, .fade2-leave-active {
+  transition: all .5s;
+}
+.fade2-enter {
+  opacity: 0;
+}
+.fade2-enter-to{
+  opacity: 1;
+}
+.fade2-leave {
+  opacity: 1;
+}
+.fade2-leave-to {
+ opacity: 0;
+}
+
+div#outerLine2 {
+  position: absolute;
+  border:1px solid;
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
+  border-color:#3a3a45;
+  transform: scale(1.1);
+  animation: outerLineAni 2.5s ease 0.6s infinite;
+}
+@keyframes outerLineAni {
+  0% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  750% {
+    transform: scale(1.17);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
 </style>
 
