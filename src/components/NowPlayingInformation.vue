@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <transition mode="out-in"><div v-if='showTitle' key='real' id="title">{{nowPlayInfo.title}}</div></transition>
+            <transition mode="out-in"><div v-if='showTitle' key='real' id="title">{{nowPlayInfo.title}}</div><div v-else>&nbsp;</div></transition>
         </div>
         <div>
             <transition mode="out-in">
@@ -10,6 +10,9 @@
                         <div v-if="carousel" key="album">{{nowPlayInfo.album}}</div>
                         <div v-else key="artist">{{nowPlayInfo.artist}}</div>
                     </transition>
+                </div>
+                <div v-else>
+                    <div>&nbsp;</div>
                 </div>
             </transition>
         </div>
