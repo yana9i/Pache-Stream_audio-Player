@@ -14,7 +14,7 @@
         <div id="imgList" >
             <div id="outerLine">
               <transition name="fade2">
-                <template  v-if="!isPlaying">
+                <template  v-if="!isPlaying&&timer.remaining>3">
                   <div>
                 <div id="outerLine2">
                 </div>
@@ -197,12 +197,12 @@ div#outerLine2 {
   height: 20vw;
   border-radius: 50%;
   border-color:#3a3a45;
-  transform: scale(1.1);
+  transform: scale(1);
   animation: outerLineAni 2.5s ease 0.6s infinite;
 }
 @keyframes outerLineAni {
   0% {
-    transform: scale(1.1);
+    transform: scale(1);
     opacity: 0;
   }
   30% {

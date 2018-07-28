@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <transition mode="out-in"><div v-if='showTitle' key='real' id="title">{{nowPlayInfo.title}}</div><div v-else>&nbsp;</div></transition>
+            <transition mode="out-in"><div v-if='showTitle' key='real' id="title">{{nowPlayInfo.title}}</div><div v-else key="nbsp1">&nbsp;</div></transition>
         </div>
         <div>
             <transition mode="out-in">
@@ -11,7 +11,7 @@
                         <div v-else key="artist">{{nowPlayInfo.artist}}</div>
                     </transition>
                 </div>
-                <div v-else>
+                <div v-else key="nbsp2">
                     <div>&nbsp;</div>
                 </div>
             </transition>

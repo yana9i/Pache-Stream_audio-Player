@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
-    <player-rec scr='https://demo.azuracast.com/api/nowplaying'></player-rec>
+    <player-rec scr='http://118.25.103.151/api/nowplaying'></player-rec>
   </div>
 </template>
 
 <script>
-import Player from './PlayerRec'
+import Player from './PacheStream-audioPlayer'
 
 export default {
   name: 'HelloWorld',
