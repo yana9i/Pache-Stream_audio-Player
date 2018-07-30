@@ -1,7 +1,7 @@
 <template>
     <div>
-        <audio-component :listenUrl='playStatus.station.listen_url' v-if='playStatus.station' ref='audio' @toggle="togglePlayer"></audio-component>
-        <play-control-component :recent-songs='recentSongs' :is-playing='isPlaying' v-if="recentSongs" @PlayUp="getPlayerStatus" @toggle="togglePlayer"></play-control-component>
+        <audio-component :listenUrl='playStatus.station.listen_url' v-if='playStatus.station' ref='audio' @LoadUp="setLoadUpTrue" @NotLoading="setLoadUpFalse"></audio-component>
+        <play-control-component :recent-songs='recentSongs' :is-playing='isPlaying' :is-load-up='isLoadUp' v-if="recentSongs" @PlayUp="getPlayerStatus" @toggle="togglePlayer"></play-control-component>
     </div>
 </template>
 
@@ -22,6 +22,7 @@ export default {
     data:function(){
         return{
             isPlaying:false,
+            isLoadUp:false,
             playStatus:'',
             recentSongs:{
                 nowPlay:{},
@@ -46,11 +47,20 @@ export default {
         togglePlayer:function(emitPlaying){
             this.$refs.audio.toggle();
             this.isPlaying = !emitPlaying
+        },
+        setLoadUpTrue(){
+            this.isLoadUp=true;
+            console.log(this.isLoadUp);
+        },
+        setLoadUpFalse(){
+            this.isLoadUp=false;
+            console.log(this.isLoadUp);
         }
     },
     mounted:function(){
         this.getPlayerStatus();
-        setInterval(this.getPlayerStatus,20000);    }
+        setInterval(this.getPlayerStatus,20000);
+    }
 }
 </script>
 

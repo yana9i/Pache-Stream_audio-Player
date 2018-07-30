@@ -1,8 +1,7 @@
 <template>
     <div>
         <now-playing-information :now-play-info='recentSongs.nowPlay.song' :progress='PlayingTimer' v-if='recentSongs.nowPlay.song&&getPlayRate' ></now-playing-information>
-        <progress-bar-and-album-cover :progress="getPlayRate*100" :recentSongs="recentSongs" v-if="recentSongs.nowPlay.song" :timer="PlayingTimer" :isPlaying="isPlaying" @toggle="$emit('toggle',isPlaying)"></progress-bar-and-album-cover>
-        <slot></slot>
+        <progress-bar-and-album-cover :progress="getPlayRate*100" :recentSongs="recentSongs" v-if="recentSongs.nowPlay.song" :timer="PlayingTimer" :isPlaying="isPlaying" :isLoadUp="isLoadUp" @toggle="$emit('toggle',isPlaying)"></progress-bar-and-album-cover>
     </div>
 </template>
 
@@ -20,6 +19,9 @@ export default {
             type:Object
         },
         isPlaying:{
+            default:false
+        },
+        isLoadUp:{
             default:false
         }
     },

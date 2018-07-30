@@ -1,7 +1,7 @@
 <template>
     <div>
             <div>
-                <audio ref="audio" preload="meta" :src="url">不支持 audio</audio>
+                <audio ref="audio" preload="meta" :src="url" @playing="$emit('LoadUp')">不支持 audio</audio>
             </div>
     </div>
 </template>
@@ -36,6 +36,7 @@ export default {
         toggle : function(){
             if (this.isPlaying){
                 this.pause();
+                this.$emit("NotLoading");
             }
             else {
                 this.play();

@@ -58,12 +58,15 @@ export default {
 }
 div{
     text-align: center;
-    color: #3A3A45
+    color: #3A3A45;
+    font-size: 1.2em;
+    min-height: 1.3em;
 }
 div#album-artist{
+    min-height: 1em;
     font-weight: 100;
     white-space: nowrap;
-    font-size: 0.6em;
+    font-size: 0.8em;
     color: #999999;
 }
 div#title{

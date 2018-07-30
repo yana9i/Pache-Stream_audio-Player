@@ -49,6 +49,10 @@ export default {
     isPlaying:{
       type:Boolean,
       default:false
+    },
+    isLoadUp:{
+      type:Boolean,
+      default:false
     }
   },
   data:function(){
@@ -63,8 +67,9 @@ export default {
     }
   },
   watch:{
-    isPlaying:function(){
-      if(this.isPlaying&&this.timer.remaining>3){
+    isLoadUp:function(){
+      if(this.isLoadUp&&this.timer.remaining>3){
+        console.log(this.isLoadUp);
         this.transitionDuration='1s';
         this.transitionTimingFunction='linear';
         this.intervalId = setInterval(()=>{this.imgRotate+=5},100);

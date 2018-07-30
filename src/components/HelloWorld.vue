@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <player-rec scr='http://118.25.103.151/api/nowplaying'></player-rec>
+    <link rel="shortcut icon" href="./static/favicon.ico">
   </div>
 </template>
 
