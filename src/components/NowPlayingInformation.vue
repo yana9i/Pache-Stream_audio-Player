@@ -1,18 +1,15 @@
 <template>
     <div>
-        <div>
-            <transition mode="out-in"><div v-if='showTitle' key='real' id="title">{{nowPlayInfo.title}}</div><div v-else key="nbsp1">&nbsp;</div></transition>
+        <div id="titleHolder">
+            <transition mode="out-in"><div v-if='showTitle' key='real' id="title">{{nowPlayInfo.title}}</div></transition>
         </div>
-        <div>
+        <div id="textHolder">
             <transition mode="out-in">
                 <div v-if="showTitle" id="album-artist">
                     <transition mode="out-in">
                         <div v-if="carousel" key="album">{{nowPlayInfo.album}}</div>
                         <div v-else key="artist">{{nowPlayInfo.artist}}</div>
                     </transition>
-                </div>
-                <div v-else key="nbsp2">
-                    <div>&nbsp;</div>
                 </div>
             </transition>
         </div>
@@ -60,6 +57,8 @@ div{
     text-align: center;
     color: #3A3A45;
     font-size: 1.2em;
+}
+div#textHolder{
     min-height: 1.3em;
 }
 div#album-artist{
@@ -67,9 +66,13 @@ div#album-artist{
     font-weight: 100;
     white-space: nowrap;
     font-size: 0.8em;
-    color: #999999;
+    color: #999999
 }
 div#title{
     font-weight: normal;
+    min-height: 1.3em;
+}
+div#titleHolder {
+    min-height: 1.7em;
 }
 </style>
