@@ -4,10 +4,19 @@
         <div class="IIProgressContainer progress-transition" :style="{width:progress+'%'}">
             <div id="progress" >
             </div>
-            <transition name="fade">
-              <svg xmlns="http://www.w3.org/2000/svg" version="1.1" v-if="isPlaying" @click="$emit('toggle',isPlaying)">
-                <polygon points="0,10 0,0 10,5"/>
-              </svg>
+            <transition name="fade-x">
+              <div @click="$emit('toggle',isPlaying)" v-if="!isPlaying">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" >
+                  <polygon points="0,10 0,0 8.660254037844386,5"/>
+                </svg>
+              </div>
+            </transition>
+            <transition name="fade-y">
+              <div  @click="$emit('toggle',isPlaying)" v-if="isPlaying">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform:translate(-1px,-6px)">
+                  <polygon points="10,0 0,0 5,8.660254037844386"/>
+                </svg>
+              </div>
             </transition>
         </div>
       </div>
@@ -15,21 +24,22 @@
             <div id="outerLine">
               <transition name="fade2">
                 <template  v-if="!isPlaying&&timer.remaining>3">
-                  <div>
-                <div id="outerLine2">
-                </div>
+                  <div id="outerLine1">
+                    <div id="outerLine2">
+                    </div>
                   </div>
                 </template>
               </transition>
               <transition name="fade2" mode="out-in">
-                <div v-if='timer.remaining>1.5||timer.elapsed<1' >
-                    <div id="imgHolder" :class="isPlaying&&(timer.remaining>3||timer.elapsed<1)?'img-holder-playing':'img-holder-not-playing'" @click="$emit('toggle',isPlaying)">
+                <div v-if='timer.remaining>1.5' >
+                    <div id="imgHolder" :class="isPlaying&&(timer.remaining>3)?'img-holder-playing':'img-holder-not-playing'" @click="$emit('toggle',isPlaying)">
                       <img :src="recentSongs.nowPlay.song.art" id="nowPlayImg" :style="coverAni,{transform:'rotate('+imgRotate+'deg)'}" >
                     </div>
                 </div>
               </transition>
             </div>
         </div>
+        <img :src="recentSongs.nextPlay.song.art" v-show="false">
     </div>
 </template>
 
@@ -120,7 +130,7 @@ svg {
   height: 10px;
   margin: -6px;
   z-index: -1;
-  transform: scale(0.85)
+  transform: scale(1.1)
 }
 
 div#imgList{
@@ -153,22 +163,36 @@ img#img-not-transition {
   opacity: 1;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-x-enter-active, .fade-x-leave-active {
   transition: all .8s;
 }
-.fade-enter {
+.fade-x-enter {
   opacity: 0;
-  transform: translateX(-3px);
+  transform: translateX(-50px);
 }
-.fade-enter-to{
+.fade-x-enter-to{
   opacity: 1;
 }
-.fade-leave {
+.fade-x-leave {
   opacity: 1;
 }
-.fade-leave-to {
+.fade-x-leave-to {
  opacity: 0;
- transform: translateX(3px);
+ transform: translateX(50px);
+}
+
+.fade-y-enter-active, .fade-y-leave-active {
+  transition: all .6s;
+}
+.fade-y-enter, .fade-y-leave-to {
+  opacity: 0;
+  transform: translateY(-3px);
+}
+.fade-y-enter-to{
+  opacity: 1;
+}
+.fade-y-leave {
+  opacity: 1;
 }
 
 div.img-holder-playing{
@@ -202,24 +226,25 @@ div#outerLine2 {
   height: 20vw;
   border-radius: 50%;
   border-color:#3a3a45;
-  transform: scale(1);
-  animation: outerLineAni 2.5s ease 0.6s infinite;
+  transform: translate(-1px,-1px) scale(1.01);
+  animation:outerLineAni 2.5s ease 0.6s infinite;
 }
+
 @keyframes outerLineAni {
   0% {
-    transform: scale(1);
+    transform:translate(-1px,-1px) scale(1);
     opacity: 0;
   }
   30% {
-    transform: scale(1.12);
+    transform:translate(-1px,-1px) scale(1.12);
     opacity: 1;
   }
   750% {
-    transform: scale(1.17);
+    transform:translate(-1px,-1px) scale(1.17);
     opacity: 1;
   }
   100% {
-    transform: scale(1.25);
+    transform:translate(-1px,-1px) scale(1.25);
     opacity: 0;
   }
 }
