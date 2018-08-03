@@ -130,7 +130,8 @@ svg {
   height: 10px;
   margin: -6px;
   z-index: -1;
-  transform: scale(1.1)
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 div#imgList{
@@ -147,6 +148,7 @@ div#imgHolder{
   width: 20vw;
   height: 20vw;
   z-index: 1999;
+  cursor: pointer;
 }
 img {
   width: 20vw;
