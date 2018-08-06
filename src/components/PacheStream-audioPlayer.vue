@@ -1,7 +1,8 @@
 <template>
     <div>
         <audio-component :listenUrl='playStatus.station.listen_url' v-if='playStatus.station' ref='audio' @LoadUp="setLoadUpTrue" @NotLoading="setLoadUpFalse"></audio-component>
-        <play-control-component :recent-songs='recentSongs' :is-playing='isPlaying' :is-load-up='isLoadUp' v-if="recentSongs" @PlayUp="getPlayerStatus" @toggle="togglePlayer"></play-control-component>
+        <play-control-component :recent-songs='recentSongs' :is-playing='isPlaying' :is-load-up='isLoadUp' v-if="recentSongs" @PlayUp="playUp" @toggle="togglePlayer"></play-control-component>
+        <img :src='recentSongs.nextPlay.song.art' v-show="false">
     </div>
 </template>
 
@@ -37,6 +38,9 @@ export default {
     },
     methods:{
         getPlayerStatus:async function(){
+            if ( this.playStatus.nowPlay) {
+                this.playStatus.nowPlay = this.playStatus.nextPlay;
+            }
             var get =await this.$ajax.get(this.scr);
             this.playStatus = get.data[0];
             this.recentSongs.nowPlay = this.playStatus.now_playing;
@@ -55,11 +59,15 @@ export default {
         setLoadUpFalse(){
             this.isLoadUp=false;
             console.log(this.isLoadUp);
+        },
+        async playUp(){
+            this.recentSongs.nowPlay.elapsed = 0;
+            await this.getPlayerStatus();
         }
     },
     mounted:function(){
         this.getPlayerStatus();
-        setInterval(this.getPlayerStatus,20000);
+        setInterval(this.getPlayerStatus,14449);
     }
 }
 </script>

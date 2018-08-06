@@ -39,7 +39,7 @@
               </transition>
             </div>
         </div>
-        <img :src="recentSongs.nextPlay.song.art" v-show="false">
+        <!-- <img :src="recentSongs.nextPlay.song.art" v-show="false"> -->
     </div>
 </template>
 
@@ -93,7 +93,19 @@ export default {
         else
           this.imgRotate=this.imgRotate-closedRotate+360;
       }
+    },
+    'recentSongs.nextPlay.song.art':function(){
+      this.preload();
     }
+  },
+  methods:{
+    async preload(){
+      var img = new Image();
+      // img.src = await this.recentSongs.nextPlay.song.art;
+    }
+  },
+  mounted(){
+    this.preload();
   }
 };
 

@@ -31,6 +31,9 @@ export default {
                 remaining:this.recentSongs.nowPlay.remaining,
                 elapsed:this.recentSongs.nowPlay.elapsed,
                 duration:this.recentSongs.nowPlay.duration
+            },
+            _recentSongs:{
+                
             }
         }
     },
@@ -38,10 +41,14 @@ export default {
         iterateTime:function(){
             this.PlayingTimer.elapsed++;
             this.PlayingTimer.remaining--;
+            if ( this.PlayingTimer.elapsed >= this.PlayingTimer.duration-1) {
+                this.$emit('playUp')
+            }
             if(this.PlayingTimer.elapsed>=this.PlayingTimer.duration){
-                this.$emit('PlayUp');
-                this.PlayingTimer.elapsed = this.PlayingTimer.duration
-                this.PlayingTimer.remaining = 0
+                console.log('i emit playup')
+                this.PlayingTimer.remaining = this.PlayingTimer.duration;
+                this.PlayingTimer.elapsed = 1;
+                this.recentSongs.nowPlay.song = this.recentSongs.nextPlay.song;
             }
         }
     },

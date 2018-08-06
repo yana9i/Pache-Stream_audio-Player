@@ -69,6 +69,7 @@ div#album-artist{
     color: #999999
 }
 div#title{
+    white-space: nowrap;
     font-weight: normal;
     min-height: 1.3em;
 }
