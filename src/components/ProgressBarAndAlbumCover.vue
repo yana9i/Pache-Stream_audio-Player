@@ -93,23 +93,11 @@ export default {
         else this.imgRotate = this.imgRotate - closedRotate + 360;
       }
     },
-    "recentSongs.nextPlay.song.art": function() {
-      this.preload();
-    },
     "timer.remaining": function() {
       if (this.timer.remaining < 1) {
         this.imgRotate = 0;
       }
     }
-  },
-  methods: {
-    async preload() {
-      var img = new Image();
-      // img.src = await this.recentSongs.nextPlay.song.art;
-    }
-  },
-  mounted() {
-    this.preload();
   }
 };
 </script>
