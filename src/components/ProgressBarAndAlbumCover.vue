@@ -39,7 +39,6 @@
               </transition>
             </div>
         </div>
-        <!-- <img :src="recentSongs.nextPlay.song.art" v-show="false"> -->
     </div>
 </template>
 
