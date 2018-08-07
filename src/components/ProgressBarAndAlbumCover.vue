@@ -46,76 +46,79 @@
 <script>
 export default {
   props: {
-    progress:{
-      type:Number,
-      default:10
+    progress: {
+      type: Number,
+      default: 10
     },
-    recentSongs:{
-      type:Object
+    recentSongs: {
+      type: Object
     },
-    timer:{
-      type:Object
+    timer: {
+      type: Object
     },
-    isPlaying:{
-      type:Boolean,
-      default:false
+    isPlaying: {
+      type: Boolean,
+      default: false
     },
-    isLoadUp:{
-      type:Boolean,
-      default:false
+    isLoadUp: {
+      type: Boolean,
+      default: false
     }
   },
-  data:function(){
-    return{
-      coverAni:{
-        transitionProperty:'all',
-        transitionDuration:'0s',
-        transitionTimingFunction:'linear'
+  data: function() {
+    return {
+      coverAni: {
+        transitionProperty: "all",
+        transitionDuration: "0s",
+        transitionTimingFunction: "linear"
       },
-      imgRotate:0,
-      intervalId:null,
-    }
+      imgRotate: 0,
+      intervalId: null
+    };
   },
-  watch:{
-    isLoadUp:function(){
-      if(this.isLoadUp&&this.timer.remaining>3){
+  watch: {
+    isLoadUp: function() {
+      if (this.isLoadUp && this.timer.remaining > 3) {
         console.log(this.isLoadUp);
-        this.transitionDuration='1s';
-        this.transitionTimingFunction='linear';
-        this.intervalId = setInterval(()=>{this.imgRotate+=5},100);
-      }
-      else{
+        this.transitionDuration = "1s";
+        this.transitionTimingFunction = "linear";
+        this.intervalId = setInterval(() => {
+          this.imgRotate += 5;
+        }, 100);
+      } else {
         clearInterval(this.intervalId);
-        this.transitionTimingFunction='ease';
+        this.transitionTimingFunction = "ease";
         var closedRotate = this.imgRotate % 360;
-        if(closedRotate < 180 )
-          this.imgRotate-=closedRotate;
-        else
-          this.imgRotate=this.imgRotate-closedRotate+360;
+        if (closedRotate < 180) this.imgRotate -= closedRotate;
+        else this.imgRotate = this.imgRotate - closedRotate + 360;
       }
     },
-    'recentSongs.nextPlay.song.art':function(){
+    "recentSongs.nextPlay.song.art": function() {
       this.preload();
+    },
+    "timer.remaining": function() {
+      if (this.timer.remaining < 1) {
+        this.imgRotate = 0;
+      }
     }
   },
-  methods:{
-    async preload(){
+  methods: {
+    async preload() {
       var img = new Image();
       // img.src = await this.recentSongs.nextPlay.song.art;
     }
   },
-  mounted(){
+  mounted() {
     this.preload();
   }
 };
-
 </script>
 
 <style scoped>
-div#root{
+div#root {
   z-index: -10;
 }
-div.IProgressContainer{
+div.IProgressContainer {
   background-color: #999;
   border-radius: 10px;
   box-shadow: 0px 1px 3px 0px #999;
@@ -146,7 +149,7 @@ svg {
   cursor: pointer;
 }
 
-div#imgList{
+div#imgList {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,8 +157,8 @@ div#imgList{
   height: 60vh;
   z-index: -10;
 }
-div#imgHolder{
-  transition: all .8s;
+div#imgHolder {
+  transition: all 0.8s;
   border-radius: 50%;
   width: 20vw;
   height: 20vw;
@@ -165,7 +168,7 @@ div#imgHolder{
 img {
   width: 20vw;
   height: 20vw;
-  transition: all .8s;
+  transition: all 0.8s;
   border-radius: 50%;
   z-index: -3;
 }
@@ -177,88 +180,92 @@ img#img-not-transition {
   opacity: 1;
 }
 
-.fade-x-enter-active, .fade-x-leave-active {
-  transition: all .8s;
+.fade-x-enter-active,
+.fade-x-leave-active {
+  transition: all 0.8s;
 }
 .fade-x-enter {
   opacity: 0;
   transform: translateX(-50px);
 }
-.fade-x-enter-to{
+.fade-x-enter-to {
   opacity: 1;
 }
 .fade-x-leave {
   opacity: 1;
 }
 .fade-x-leave-to {
- opacity: 0;
- transform: translateX(50px);
+  opacity: 0;
+  transform: translateX(50px);
 }
 
-.fade-y-enter-active, .fade-y-leave-active {
-  transition: all .6s;
+.fade-y-enter-active,
+.fade-y-leave-active {
+  transition: all 0.6s;
 }
-.fade-y-enter, .fade-y-leave-to {
+.fade-y-enter,
+.fade-y-leave-to {
   opacity: 0;
   transform: translateY(-3px);
 }
-.fade-y-enter-to{
+.fade-y-enter-to {
   opacity: 1;
 }
 .fade-y-leave {
   opacity: 1;
 }
 
-div.img-holder-playing{
-  transform: translate(0vw,-30vh);
+div.img-holder-playing {
+  transform: translate(0vw, -30vh);
 }
-div.img-holder-not-playing{
-  transform: translate(0vw,0vw);
+div.img-holder-not-playing {
+  transform: translate(0vw, 0vw);
   box-shadow: 0px 2px 7px 0px #999;
 }
 
-.fade2-enter-active, .fade2-leave-active {
-  transition: all .5s;
+.fade2-enter-active,
+.fade2-leave-active {
+  transition: all 0.5s;
 }
 .fade2-enter {
   opacity: 0;
 }
-.fade2-enter-to{
+.fade2-enter-to {
   opacity: 1;
 }
 .fade2-leave {
   opacity: 1;
 }
 .fade2-leave-to {
- opacity: 0;
+  opacity: 0;
 }
 
 div#outerLine2 {
   position: absolute;
-  border:1px solid;
+  border: 1px solid;
   width: 20vw;
   height: 20vw;
   border-radius: 50%;
-  border-color:#3a3a45;
-  transform: translate(-1px,-1px) scale(1.01);
-  animation:outerLineAni 2.5s ease 0.6s infinite;
+  border-color: #3a3a45;
+  transform: translate(-1px, -1px) scale(1.01);
+  animation: outerLineAni 2.5s ease 0.6s infinite;
 }
 
 @keyframes outerLineAni {
   0% {
-    transform:translate(-1px,-1px) scale(1);
+    transform: translate(-1px, -1px) scale(1);
     opacity: 0;
   }
   30% {
-    transform:translate(-1px,-1px) scale(1.12);
+    transform: translate(-1px, -1px) scale(1.12);
     opacity: 1;
   }
   750% {
-    transform:translate(-1px,-1px) scale(1.17);
+    transform: translate(-1px, -1px) scale(1.17);
     opacity: 1;
   }
   100% {
-    transform:translate(-1px,-1px) scale(1.25);
+    transform: translate(-1px, -1px) scale(1.25);
     opacity: 0;
   }
 }
